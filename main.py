@@ -30,6 +30,11 @@ def main() -> int:
     os.makedirs(out_dir, exist_ok=True)
     with open(os.path.join(out_dir, "entry.txt"), "w", encoding="utf-8", newline="") as f:
         f.write(text)
+    with open(os.path.join(out_dir, "entry.txt"), "r", encoding="utf-8", newline="") as f:
+        written = f.read()
+    if written != text:
+        print("entry.txt round-trip mismatch", file=sys.stderr)
+        return 1
     print("wrote %d chars to %s/entry.txt" % (len(text), out_dir))
     return 0
 
